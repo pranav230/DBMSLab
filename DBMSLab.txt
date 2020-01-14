@@ -134,3 +134,7 @@ insert into ordering values('67','05','220');
 Answer 3:
 
 update item set unit_price = unit_price*1.01;
+
+
+Answer 4:
+
