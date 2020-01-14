@@ -1,0 +1,131 @@
+Answer 1:
+
+create table Item(
+    Item_Code int not null,
+    Item_Description varchar(25),
+    Unit_Price int,
+    EOQ int,
+    ROL int,
+    SOH int,
+    Back_Order_Qty int,
+    Constraint pk1_item Primary Key(Item_Code)
+);
+
+create table Section(
+    Section_Code int,
+    Section_Name varchar(25),
+    Constraint pk1_section Primary Key (Section_Code)
+);
+
+create table Cheque(
+    Cheque_No int,
+    Cheque_Date Date,
+    Cheque_Amount int,
+    Constraint pk1_cheque Primary Key(Cheque_No)
+);
+
+create table Indent(
+    Indent_No int,
+    Quantity_Demanded int,
+    Quantity_Issued int,
+    Section_Code int,
+    Item_Code int,
+    Constraint pk1_indent Primary Key(Indent_No),
+    Constraint fk1_indent Foreign Key(Section_Code) references Section(Section_Code),
+    Constraint fk2_indent Foreign Key(Item_Code) references Item(Item_Code)
+);
+
+create table Vendor(
+    Vendor_No int,
+    Vendor_Name varchar(25),
+    Vendor_Addr varchar(25),
+    Constraint pk1_vendor Primary Key(Vendor_No)
+);
+
+create table Voucher(
+    Voucher_No int,
+    Voucher_Date date,
+    Vendor_No int,
+    Cheque_No int,
+    Constraint pk1_voucher Primary Key(Voucher_No),
+    Constraint fk1_voucher Foreign Key(Vendor_No) references Vendor(Vendor_No),
+    Constraint fk2_voucher Foreign Key(Cheque_No) references Cheque(Cheque_No)
+);
+
+create table Orders(
+    Order_No int,
+    Order_Date date,
+    Voucher_No int,
+    Vendor_No int,
+    Due_Date date,
+    Constraint pk1_order Primary Key(Order_No),
+    Constraint fk1_order Foreign Key(Voucher_No) references Voucher(Voucher_No),
+    Constraint fk2_order Foreign Key(Vendor_No) references Vendor(Vendor_No)
+);
+
+create table Ordering(
+    Order_No int,
+    Item_Code int,
+    Quantity_Recieved int,
+    Constraint fk1_ordering Foreign Key(Order_No) references Orders(Order_No),
+    Constraint fk2_ordering Foreign Key(Item_Code) references Item(Item_Code)
+);
+
+
+Answer 2:
+
+Items:	
+insert into item values('01','book','25.00',75,15,50,12);
+insert into item values('02','calculator','650.00',80,50,12,21);
+insert into item values('03','record','60.00',23,72,40,31);
+insert into item values('04','pen','5.00',44,32,93,80);
+insert into item values('05','bag','1000.00',99,32,78,32);
+
+Vendor:
+insert into vendor values('21','John','Las Vegas');
+insert into vendor values('22','Siri','Canyon road');
+insert into vendor values('23','Tom','Chicao');
+insert into vendor values('24','Messi','Miami');
+insert into vendor values('25','Joy','Oxford Street');
+	
+Section:
+insert into section values('15','shop1');
+insert into section values('16','shop2');
+insert into section values('17','shop3');
+insert into section values('18','shop4');
+insert into section values('19','shop5');
+
+Cheque:
+insert into cheque values(1010,'18-DEC-2018',24567.00);	
+insert into cheque values(1781,'21-JAN-2019',12137.00);	
+insert into cheque values(1562,'13-DEC-2016',34575.00);	
+insert into cheque values(1231,'19-MAR-2017',53461.00);
+insert into cheque values(1120,'17-NOV-2017',43576.00);	
+
+Voucher
+insert into voucher values(34,'18-DEC-2018',21,1781);
+insert into voucher values(56,'17-NOV-2017',24,1562);
+insert into voucher values(12,'21-JAN-2019',23,1781);
+insert into voucher values(98,'13-DEC-2016',22,1231);
+insert into voucher values(87,'19-MAR-2017',25,1120);
+	
+Indent:
+insert into indent values(45,13,112,15,1);
+insert into indent values(32,78,162,17,5);
+insert into indent values(67,23,171,16,4);
+insert into indent values(12,56,435,18,3);
+insert into indent values(87,12,557,19,2);
+
+Orders:
+insert into orders values('32','12-MAR-2019','34','21','18-DEC-2018');
+insert into orders values('42','19-SEP-2012','56','21','17-NOV-2017');
+insert into orders values('66','20-JUN-2015','12','21','21-JAN-2019');
+insert into orders values('78','31-MAY-2016','98','21','13-DEC-2016');
+insert into orders values('67','06-APR-2012','87','21','19-MAR-2017');
+
+Ordering:
+insert into ordering values('32','01','112');
+insert into ordering values('42','02','557');
+insert into ordering values('66','03','435');
+insert into ordering values('78','04','171');
+insert into ordering values('67','05','220');
