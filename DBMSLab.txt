@@ -234,5 +234,10 @@ select O.Voucher_No from Orders O;
 
 //Exception
 select V.Voucher_No from Voucher V
-except
+minus
 select O.Voucher_No from Orders O;
+
+
+Answer 12:
+
+alter table Section add incahrge_code int;
