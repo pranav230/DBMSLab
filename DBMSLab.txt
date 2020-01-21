@@ -192,3 +192,23 @@ where Order_Date between '01-Jan-2000' and '31-Jan-2006';
 Answer 9:
 
 //Left Join
+select * 
+from orders O Left Join voucher V
+on V.Voucher_No=O.Voucher_No
+order by Order_No;
+
+//Right Join
+select * 
+from orders O Right Join voucher V
+on V.Voucher_No=O.Voucher_No
+order by Order_No;
+
+//Full Outer Join
+select * 
+from orders O Full Outer Join voucher V
+on V.Voucher_No=O.Voucher_No
+order by Order_No;
+
+
+Answer 10:
+
