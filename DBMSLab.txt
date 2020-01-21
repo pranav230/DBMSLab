@@ -141,5 +141,19 @@ Answer 4:
 alter table item add Constraint chk_item 
 check(unit_price > 0);
 
-//for making sure that Constraint is added
+//for making sure that Constraint is added use this
 insert into item values('06','bag',-2,99,32,78,32);
+
+
+Answer 5:
+
+alter table Orders drop Constraint fk1_order;
+alter table Orders add Constraint fk3_order Foreign Key(Voucher_No) references voucher(Voucher_No) on delete set null;
+delete from voucher where Voucher_No=12;
+
+//for checking if it worked fine add this command
+select * from Orders;
+
+
+Answer 6:
+
