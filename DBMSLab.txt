@@ -147,13 +147,48 @@ insert into item values('06','bag',-2,99,32,78,32);
 
 Answer 5:
 
-alter table Orders drop Constraint fk1_order;
-alter table Orders add Constraint fk3_order Foreign Key(Voucher_No) references voucher(Voucher_No) on delete set null;
+alter table Orders 
+drop Constraint fk1_order;
+
+alter table Orders 
+add Constraint fk3_order 
+Foreign Key(Voucher_No) references voucher(Voucher_No) on delete set null;
+
 delete from voucher where Voucher_No=12;
 
-//for checking if it worked fine add this command
+//for checking if it worked fine add this query
 select * from Orders;
 
 
 Answer 6:
 
+select Item_Code,count(*) from ordering
+group by Item_Code having count(*)=1
+order by Item_Code;
+
+
+Answer 7:
+
+select count(*) as numberOfTuples from item;
+
+select min(EOQ) as minimumEOQ,max(EOQ) as maximumEOQ from item;
+
+select avg(EOQ) as averageEOQ,sum(EOQ) as sumOfEOQ from item;
+
+
+Answer 8:
+
+//Add some data in the table first
+insert into voucher values(23,'19-MAR-2017',25,1120);
+insert into voucher values(24,'19-MAR-2017',25,1120);
+insert into orders values('68','20-JAN-2000','23','21','21-JAN-2000');
+insert into orders values('69','12-JUN-2002','24','21','21-JAN-2003');
+
+//now execute the query
+select * from Orders
+where Order_Date between '01-Jan-2000' and '31-Jan-2006';
+
+
+Answer 9:
+
+//Left Join
