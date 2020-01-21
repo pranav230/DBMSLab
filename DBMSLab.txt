@@ -178,7 +178,8 @@ select avg(EOQ) as averageEOQ,sum(EOQ) as sumOfEOQ from item;
 
 Answer 8:
 
-//Add some data in the table first
+//Add some data in the table first 
+**watch for integrity Constraint according to your data**
 insert into voucher values(23,'19-MAR-2017',25,1120);
 insert into voucher values(24,'19-MAR-2017',25,1120);
 insert into orders values('68','20-JAN-2000','23','21','21-JAN-2000');
@@ -212,3 +213,26 @@ order by Order_No;
 
 Answer 10:
 
+create index idx_unitPrice on item(Unit_Price);
+drop index idx_unitPrice;
+
+
+Answer 11:
+
+//inserting elements for getting outputs
+insert into voucher values(25,'19-MAR-2017',25,1120);
+
+//Union
+select O.Voucher_No from Orders O
+union
+select V.Voucher_No from Voucher V;
+
+//Intersection
+select V.Voucher_No from Voucher V
+intersect
+select O.Voucher_No from Orders O;
+
+//Exception
+select V.Voucher_No from Voucher V
+except
+select O.Voucher_No from Orders O;
