@@ -240,4 +240,5 @@ select O.Voucher_No from Orders O;
 
 Answer 12:
 
-alter table Section add incahrge_code int;
+alter table Section add
+ incahrge_code int;
