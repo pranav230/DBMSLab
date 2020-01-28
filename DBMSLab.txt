@@ -241,3 +241,21 @@ select O.Voucher_No from Orders O;
 Answer 12:
 
 alter table Section add incahrge_code int;
+
+
+Answer 13:
+
+select i.Item_Code, i.Item_Description, i.Unit_Price 
+from Item i, Orders o, Ordering od
+where   o.Order_No = od.Order_No and  
+        i.Item_Code = od.Item_Code and 
+        o.Order_No = 67 and o.Vendor_No = 21;
+
+
+Answer 14:
+
+select o.Order_No, o.Order_Date, v.Vendor_Addr, i.Item_Code, i.Item_Description, i.EOQ, od.Quantity_Recieved
+from vendor v, Orders o, item i, ordering od
+where   od.Order_No = o.Order_No and i.Item_Code = od.Item_Code and   
+        o.Vendor_No = v.Vendor_No
+order by o.Order_Date;
