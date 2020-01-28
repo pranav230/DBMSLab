@@ -259,3 +259,19 @@ from vendor v, Orders o, item i, ordering od
 where   od.Order_No = o.Order_No and i.Item_Code = od.Item_Code and   
         o.Vendor_No = v.Vendor_No
 order by o.Order_Date;
+
+
+Answer 15:
+
+select ind.Indent_No, s.Section_Code, s.Section_Name, i.Item_Code,
+        i.Item_Description, ind.Quantity_Demanded, ind.Quantity_Issued
+from indent ind,Section s, Item i
+where ind.Item_Code = i.Item_Code and ind.Section_Code = s.Section_Code;
+
+
+Answer 16:
+
+select o.Order_No, o.Order_Date, o.Due_Date, v.Vendor_No, v.Vendor_Name,
+((select sysdate from dual) - o.Order_Date) as Delay
+from orders o, Vendor v
+where v.Vendor_No = o.Vendor_No;
