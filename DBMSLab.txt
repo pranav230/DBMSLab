@@ -275,3 +275,19 @@ select o.Order_No, o.Order_Date, o.Due_Date, v.Vendor_No, v.Vendor_Name,
 ((select sysdate from dual) - o.Order_Date) as Delay
 from orders o, Vendor v
 where v.Vendor_No = o.Vendor_No;
+
+
+Answer 17:
+
+Select i.Item_Code, i.Item_Description, i.Unit_Price, i.EOQ, od.Quantity_Recieved,
+       concat('Rs ',(i.EOQ * od.Quantity_Recieved)) as itemOrderValue 
+from item i, Orders o, ordering od
+where od.Item_Code = i.Item_Code and od.Order_No = o.Order_No and 
+      o.Order_No = 67 and o.Vendor_No = 21 and o.Voucher_No = 87;
+
+
+Answer 18:
+
+select v.Voucher_No, v.Voucher_Date, c.Cheque_No, c.Cheque_Amount, c.Cheque_Date
+from Cheque c, voucher v, Vendor ve
+where v.Vendor_No = ve.Vendor_No and c.Cheque_No = v.Cheque_No and v.Vendor_No=25;
