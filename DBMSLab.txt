@@ -291,3 +291,11 @@ Answer 18:
 select v.Voucher_No, v.Voucher_Date, c.Cheque_No, c.Cheque_Amount, c.Cheque_Date
 from Cheque c, voucher v, Vendor ve
 where v.Vendor_No = ve.Vendor_No and c.Cheque_No = v.Cheque_No and v.Vendor_No=25;
+
+
+Answer 19:
+
+Select i.Item_Code, i.Item_Description, i.Unit_Price, ind.Quantity_Issued,
+        concat('Rs ', ( ind.Quantity_Issued * i.Unit_Price)) as ItemConsumptionValue
+from Item i, indent ind
+where i.Item_Code = ind.Item_Code;
