@@ -299,3 +299,17 @@ Select i.Item_Code, i.Item_Description, i.Unit_Price, ind.Quantity_Issued,
         concat('Rs ', ( ind.Quantity_Issued * i.Unit_Price)) as ItemConsumptionValue
 from Item i, indent ind
 where i.Item_Code = ind.Item_Code;
+
+
+Answer 20:
+
+Case 1:
+    create or replace TRIGGER t
+    before insert on item for  each row
+    declare
+    begin
+    if(:new.SOH > :new.ROL) then
+    raise_application_error(-20010,'SOH value should be less than ROL');
+    end if;
+    end;
+    /
