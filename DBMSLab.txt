@@ -303,13 +303,67 @@ where i.Item_Code = ind.Item_Code;
 
 Answer 20:
 
-Case 1:
-    create or replace TRIGGER t
-    before insert on item for  each row
-    declare
-    begin
-    if(:new.SOH > :new.ROL) then
-    raise_application_error(-20010,'SOH value should be less than ROL');
-    end if;
-    end;
-    /
+create or replace TRIGGER t
+before insert on item for  each row
+declare
+begin
+if(:new.SOH > :new.ROL) then
+raise_application_error(-20010,'SOH value should be less than ROL');
+end if;
+end;
+/
+
+
+Answer 21:
+
+create or replace procedure p1(in_date date)is
+cursor a1 is
+select orders.order_no,item_code
+from orders,ordering
+where order_Date=in_date and orders.order_no=ordering.order_no;
+c1 orders.order_no%type;
+c2 ordering.item_code%type;
+begin
+    open a1;
+        fetch a1 into c1,c2;
+        loop
+            exit when a1%notfound;
+            dbms_output.put_line('order_no '||c1||' itemcode '||c2);
+            fetch a1 into c1,c2;
+        end loop;
+    close a1;
+end;
+/
+
+select order_no,item_code
+from orders O,ordering
+where order_date='12-mar-19' and orders.order_no=ordering.order_no;
+
+SET SERVEROUTPUT ON;
+EXEC P1('12-MAR-19');
+
+
+Answer 22:
+
+create or replace procedure p2(code varchar,v_no varchar) IS
+cursor A2 IS
+select count(*) AS no_of_orders 
+from ordering o2,orders o,indent i
+where o2.order_no=o.order_no AND o2.item_code=i.item_code AND o.Vendor_No=v_no AND i.item_code=code;
+
+qty indent.Quantity_Demanded % type;
+BEGIN
+    open A2;
+        fetch A2 into qty;
+        loop
+            exit when A2%NOTFOUND;
+            DBMS_OUTPUT.PUT_LINE('no.of orders ='||QTY);
+            fetch A2 into qty;
+        END loop;
+    close A2;
+END;
+/
+
+set serveroutput on;
+
+exec p2('1','21');
