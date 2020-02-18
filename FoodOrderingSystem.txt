@@ -82,3 +82,35 @@ CREATE TABLE CITEMS (
     CONSTRAINT CIFK1 FOREIGN KEY (CAID) REFERENCES CART(CAID),
     CONSTRAINT CIFK2 FOREIGN KEY (ITEMNO) REFERENCES ITEMS(ITEMNO) 
 );
+
+
+INSERTING DATA:
+
+INSERT INTO CUSTOMER VALUES('001','NITIN','GOLARD','PATNA','BIHAR','8677891217','nitinnitin789@gmail.com','1','nitin');
+INSERT INTO CUSTOMER VALUES('002','RAVISH','MG Road','Ranchi','Jharkhand','987456234','ravish@gmail.com','2','ravish');
+INSERT INTO CUSTOMER VALUES('003','PATEL','sigapore rd','patna','bihar','7894561232','patel@gmail.com','3','patel');
+INSERT INTO CUSTOMER VALUES('004','pavan','tumkur rd','tumkur','karnataka','2245567894','pavan@gmail.com','4','pavan');
+INSERT INTO CUSTOMER VALUES('005','ritesh','mc nagar','badnamganj','nagaland','9783457823','hajam@gmail.com','5','rith');
+
+
+INSERT INTO EMPLOYEE VALUES('010','raju','patel nagar','patna','bihar','3453453456','asdfj@gmail.com','asdf');
+INSERT INTO EMPLOYEE VALUES('020','vis','boring road','patna','bihar','678682341','vic@gmail.com','cdhe');
+INSERT INTO EMPLOYEE VALUES('030','sujeev','risra','kolkata','westbengal','7894533457','rohit@gmail.com','sujeev');
+INSERT INTO EMPLOYEE VALUES('040','snehal','kankarbagh','patna','bihar','8907673452','sneha@gmail.com','sneha');
+INSERT INTO EMPLOYEE VALUES('050','ankur','kanaout place','noida','delhi','890345789','ankur@gmail.com','ankur');
+
+
+INSERT INTO VEHICLE VALUES('v1','KA06UT1234','splender');
+INSERT INTO VEHICLE VALUES('v2','KA152W0987','rajdoot');
+INSERT INTO VEHICLE VALUES('v3','KA01YT4567','duke');
+INSERT INTO VEHICLE VALUES('v4','KA05MZ1479','bullet');
+INSERT INTO VEHICLE VALUES('v5','KA03DD3333','shine');
+
+
+INSERT INTO DELIVERYBOY VALUES('d1','nitesh das','beerDa rd','viratnagar','nepal','7893456754','mansi@gmail.com',1,'v1','040');
+INSERT INTO DELIVERYBOY VALUES('d2','bhagwati','dickson rd','guwahati','assam','7893463456','kirti@gmail.com',0,'v2','030');
+INSERT INTO DELIVERYBOY VALUES('d3','gelson','keertird','shillong','manipur','987345673','mgelu@gmail.com',0,'v3','020');
+INSERT INTO DELIVERYBOY VALUES('d4','manoj','b hrd','tumkur','karnataka','9874356783','mazzi@gmail.com',1,'v4','050');
+INSERT INTO DELIVERYBOY VALUES('d5','vivek','vishram nagar','aligang','UP','9889454534','cv@gmail.com',0,'v5','010');
+
+
