@@ -1,3 +1,5 @@
+Creating Tables:
+
 CREATE TABLE CUSTOMER (
     CID VARCHAR(15) NOT NULL,
     CNAME VARCHAR(50) NOT NULL,
@@ -52,8 +54,10 @@ CREATE TABLE ORDERS (
     ODATE DATE NOT NULL,
     OSTATUS INT NOT NULL,
     DID VARCHAR(15) NOT NULL,
+    CID VARCHAR(15),
     CONSTRAINT OPK1 PRIMARY KEY(ORDERNO),
-    CONSTRAINT OFK1 FOREIGN KEY (DID) REFERENCES DELIVERYBOY(DID)
+    CONSTRAINT OFK1 FOREIGN KEY (DID) REFERENCES DELIVERYBOY(DID),
+    CONSTRAINT OFK2 FOREIGN KEY (CID) REFERENCES CUSTOMER(CID);
 ); 
 
 CREATE TABLE CART (
@@ -113,17 +117,20 @@ INSERT INTO DELIVERYBOY VALUES('d3','gelson','keertird','shillong','manipur','98
 INSERT INTO DELIVERYBOY VALUES('d4','manoj','b hrd','tumkur','karnataka','9874356783','mazzi@gmail.com',1,'v4','050');
 INSERT INTO DELIVERYBOY VALUES('d5','vivek','vishram nagar','aligang','UP','9889454534','cv@gmail.com',0,'v5','010');
 
-INSERT INTO ORDERS VALUES('1',4,'07-mar-2019',1,'d4');
-INSERT INTO ORDERS VALUES('2',5,'19-mar-2019',0,'d3');
-INSERT INTO ORDERS VALUES('3',3,'25-mar-2019',1,'d1');
-INSERT INTO ORDERS VALUES('4',10,'31-mar-2019',0,'d5');
-INSERT INTO ORDERS VALUES('5',6,'02-apr-2020',0,'d2');
+
+INSERT INTO ORDERS VALUES('1',4,'07-mar-2019',1,'d4','001');
+INSERT INTO ORDERS VALUES('2',5,'19-mar-2019',0,'d3','002');
+INSERT INTO ORDERS VALUES('3',3,'25-mar-2019',1,'d1','003');
+INSERT INTO ORDERS VALUES('4',10,'31-mar-2019',0,'d5','004');
+INSERT INTO ORDERS VALUES('5',6,'02-apr-2020',0,'d2','005');
+
 
 INSERT INTO CART VALUES('CA1',2000,'4','004');
 INSERT INTO CART VALUES('CA2',1400,'2','002');
 INSERT INTO CART VALUES('CA3',1500,'1','001');
 INSERT INTO CART VALUES('CA4',1200,'5','005');
 INSERT INTO CART VALUES('CA5',5000,'3','003');
+
 
 INSERT INTO ITEMS values('I1','CHICKEN BIRYANI',160,1,100);
 INSERT INTO ITEMS values('I2','NOORANI',165,1,50);
@@ -153,3 +160,38 @@ INSERT INTO CITEMS VALUES('CA5','I3',20);
 INSERT INTO CITEMS VALUES('CA5','I9',11);
 INSERT INTO CITEMS VALUES('CA5','I10',10);
 INSERT INTO CITEMS VALUES('CA5','I4',4);
+
+
+Queries:
+
+1: Retrieve the details of a Delivery Boy assigned by the employee Raju.
+
+select DNAME,DPHNO,DMAILID,D.STREET ||',' || D.CITY ||',' || D.STATE as Address 
+from DELIVERYBOY D,EMPLOYEE E 
+where D.EID=E.EID and E.ENAME='raju';
+
+2. Retrieve order details ordered by nitin on date 11-nov-2011
+
+select * from orders 
+where CID in (select cid from CUSTOMER where CNAME='NITIN') 
+and ODATE='07-mar-2019';
+
+
+3. Retrieve items ordered by customer named PATEL
+
+select I.ITEMNO,I.ITEMDESC
+from CITEMS CT,ITEMS I,CART CA,CUSTOMER C
+where C.CID=CA.CID and CA.CAID=CT.CAID and CT.ITEMNO=I.ITEMNO and C.CNAME='PATEL';
+
+
+4. Retrieve the numbers of delivery boy assigned.
+
+select count(ORDERNO)
+from ORDERS o, DELIVERYBOY d
+where d.DID=o.DID;
+
+5. Retrieve the name of the customer having maximum rate.
+
+select distinct(c.CNAME)
+from CUSTOMER c, CART ca
+where c.CID in (select ca.CID from CART ca where ca.TOTPRICE in (select Max(TOTPRICE) from CART ca));
