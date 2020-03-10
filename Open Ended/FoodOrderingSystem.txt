@@ -84,7 +84,7 @@ CREATE TABLE CITEMS (
     ITEMNO VARCHAR(15) NOT NULL,
     IQTY INT NOT NULL,
     CONSTRAINT CIFK1 FOREIGN KEY (CAID) REFERENCES CART(CAID),
-    CONSTRAINT CIFK2 FOREIGN KEY (ITEMNO) REFERENCES ITEMS(ITEMNO) 
+    CONSTRAINT CIFK2 FOREIGN KEY (ITEMNO) REFERENCES ITEMS(ITEMNO)
 );
 
 
@@ -144,6 +144,7 @@ INSERT INTO ITEMS values('I9','IDLI WADA',40,1,150);
 INSERT INTO ITEMS values('I10','MYSORE DOSA',60,1,50);
 INSERT INTO ITEMS values('I11','FISH',110,1,30);
 
+
 INSERT INTO CITEMS VALUES('CA1','I5',3);
 INSERT INTO CITEMS VALUES('CA1','I8',2);
 INSERT INTO CITEMS VALUES('CA1','I10',6);
@@ -170,6 +171,7 @@ select DNAME,DPHNO,DMAILID,D.STREET ||',' || D.CITY ||',' || D.STATE as Address
 from DELIVERYBOY D,EMPLOYEE E 
 where D.EID=E.EID and E.ENAME='raju';
 
+
 2. Retrieve order details ordered by nitin on date 11-nov-2011
 
 select * from orders 
@@ -190,8 +192,29 @@ select count(ORDERNO)
 from ORDERS o, DELIVERYBOY d
 where d.DID=o.DID;
 
+
 5. Retrieve the name of the customer having maximum rate.
 
 select distinct(c.CNAME)
 from CUSTOMER c, CART ca
-where c.CID in (select ca.CID from CART ca where ca.TOTPRICE in (select Max(TOTPRICE) from CART ca));
+where c.CID in (
+    select ca.CID from CART ca 
+    where ca.TOTPRICE in (select Max(TOTPRICE) from CART ca)
+);
+
+
+6. Show the details of the delivery boy which are available right now and assigned by 'ankur'.
+ 
+select d.DID,d.DNAME,d.DPHNO from DELIVERYBOY d, employee e 
+where DBSTATUS = 1 and d.EID = e.EID and e.ENAME='ankur';
+
+
+7. Delete item details from item table given by item code and make sure that this operation automatically insert null to all related tuples in the system.
+
+alter table citems drop CONSTRAINT cifk2;
+alter table citems add CONSTRAINT cifk2 FOREIGN key (ITEMNO) REFERENCES items(ITEMNO) on delete set null;
+
+delete from items where ITEMNO = 'I11';
+
+
+8. 
