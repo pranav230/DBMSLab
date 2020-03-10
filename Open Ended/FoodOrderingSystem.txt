@@ -213,8 +213,22 @@ where DBSTATUS = 1 and d.EID = e.EID and e.ENAME='ankur';
 
 alter table citems drop CONSTRAINT cifk2;
 alter table citems add CONSTRAINT cifk2 FOREIGN key (ITEMNO) REFERENCES items(ITEMNO) on delete set null;
-
 delete from items where ITEMNO = 'I11';
 
 
-8. 
+8. Increase all the item price by 5% of the original price.
+
+update items 
+set UNITPRICE = 1.05* UNITPRICE;
+
+
+9. Retrieve details of customer who have ordered maximum food.
+
+
+
+
+10. Show that which delivery boy rides which vehicle while delivering the order.
+
+select d.DNAME,v.VNo 
+from DELIVERYBOY d , vehicle v
+where d.VID = v.VID;
